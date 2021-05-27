@@ -43,7 +43,13 @@ This repo includes the following components:
     client.list_all_tables()
 
     ## Output
-    [Table(name='COVID_19_NYT', share='delta_sharing', schema='default'), Table(name='boston-housing', share='delta_sharing', schema='default'), Table(name='flight-asa_2008', share='delta_sharing', schema='default'), Table(name='lending_club', share='delta_sharing', schema='default'), Table(name='nyctaxi_2019', share='delta_sharing', schema='default'), Table(name='nyctaxi_2019_part', share='delta_sharing', schema='default'), Table(name='owid-covid-data', share='delta_sharing', schema='default')]
+    [Table(name='COVID_19_NYT', share='delta_sharing', schema='default'), 
+     Table(name='boston-housing', share='delta_sharing', schema='default'), 
+     Table(name='flight-asa_2008', share='delta_sharing', schema='default'), 
+     Table(name='lending_club', share='delta_sharing', schema='default'), 
+     Table(name='nyctaxi_2019', share='delta_sharing', schema='default'), 
+     Table(name='nyctaxi_2019_part', share='delta_sharing', schema='default'), 
+     Table(name='owid-covid-data', share='delta_sharing', schema='default')]
     ```
 
 5. Query a Delta Share table
