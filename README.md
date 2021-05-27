@@ -17,6 +17,61 @@ This repo includes the following components:
 - [Apache Spark](http://spark.apache.org/) Connector: An Apache Spark connector that implements the Delta Sharing Protocol to read shared tables from a Delta Sharing Server. The tables can then be accessed in SQL, Python, Java, Scala, or R.
 - Delta Sharing Server: A reference implementation server for the Delta Sharing Protocol for development purposes. Users can deploy this server to share existing tables in Delta Lake and Apache Parquet format on modern cloud storage systems.
 
+# Jump Start
+
+1. Download the profile file to access an open, example Delta Sharing Server that we're hosting [here](https://databricks-datasets-oregon.s3-us-west-2.amazonaws.com/delta-sharing/share/open-datasets.share).  You can also do this from a `bash` terminal with the following command
+    ```
+    wget https://databricks-datasets-oregon.s3-us-west-2.amazonaws.com/delta-sharing/share/open-datasets.share
+    ```
+
+2. Install Delta Sharing and PySpark packages
+    ```
+    pip3 install delta-sharing==0.1.0
+    pip3 install pyspark
+    ```
+
+3. Start PySpark
+    ```
+    pyspark --packages io.delta:delta-sharing-spark_2.12:0.1.0
+    ```
+
+4. List out available Delta Shares
+    ```
+    profile_file = "/.../open-datasets.share"
+    import delta_sharing
+    client = delta_sharing.SharingClient(profile_file)
+    client.list_all_tables()
+
+    ## Output
+    [Table(name='COVID_19_NYT', share='delta_sharing', schema='default'), Table(name='boston-housing', share='delta_sharing', schema='default'), Table(name='flight-asa_2008', share='delta_sharing', schema='default'), Table(name='lending_club', share='delta_sharing', schema='default'), Table(name='nyctaxi_2019', share='delta_sharing', schema='default'), Table(name='nyctaxi_2019_part', share='delta_sharing', schema='default'), Table(name='owid-covid-data', share='delta_sharing', schema='default')]
+    ```
+
+5. Query a Delta Share table
+    ```
+    table_url = profile_file + "#delta_sharing.default.owid-covid-data"
+
+    # Load Delta Share as Pandas DataFrame
+    delta_sharing.load_as_pandas(table_url)
+
+    # Load Delta Share by Spark DataFrame
+    delta_sharing.load_as_spark(table_url).show()
+
+    ## Output
+          iso_code      continent  location  ...
+    0          CHL  South America     Chile  ...  
+    1          CHL  South America     Chile  ...  
+    2          CHL  South America     Chile  ...  
+    3          CHL  South America     Chile  ...  
+    4          CHL  South America     Chile  ...  
+    ...        ...            ...       ...  ...  
+    87737      ZWE         Africa  Zimbabwe  ...  
+    87738      ZWE         Africa  Zimbabwe  ...  
+    87739      ZWE         Africa  Zimbabwe  ...  
+    87740      ZWE         Africa  Zimbabwe  ...  
+    87741      ZWE         Africa  Zimbabwe  ...  
+    [87742 rows x 59 columns]
+    ```
+
 
 # Python Connector
 
